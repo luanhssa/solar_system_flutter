@@ -43,6 +43,8 @@ class AppColors {
 
   Color get brandWhite => Color(0xFFFFFFFF);
 
+  Color get brandWhiteOpacity => Color(0xFFFFFFFF).withOpacity(0.65);
+
   Color get gradientButtonLeft => Color(0xFFEF5F53);
 
   Color get gradientButtonRight => Color(0xFFFA8F70);
