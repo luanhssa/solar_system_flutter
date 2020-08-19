@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:solar_system/src/app/widgets/category_card.dart';
+import 'package:solar_system/src/app/widgets/celestial_card.dart';
 import 'package:solar_system/src/app/widgets/icons/app_icons.dart';
 import 'package:solar_system/src/app/widgets/images/app_image.dart';
-import 'package:solar_system/src/app/widgets/planet_card.dart';
+import 'package:solar_system/src/app/widgets/search_text_field.dart';
+import 'package:solar_system/src/app/widgets/session_widget.dart';
 import 'package:solar_system/src/core/stylesheet.dart';
+import 'package:solar_system/src/core/utils.dart';
+import 'package:solar_system/src/domain/entities/category.dart';
+import 'package:solar_system/src/domain/entities/celestial_body.dart';
+
+import 'header.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,6 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<CelestialBody> celestialBodies = <CelestialBody>[];
   int currentPage = 0;
 
   final List<BarItem> barItems = <BarItem>[
@@ -62,9 +69,25 @@ class _HomePageState extends State<HomePage> {
                     child: SearchTextField(),
                   ),
                   const SizedBox(height: 48),
-                  CategoryWidget(),
+                  SessionWidget<Category>(
+                    height: 80,
+                    title: 'Categorias',
+                    list: Category.values,
+                    builder: (BuildContext context, Category category) {
+                      return category.tile;
+                    },
+                  ),
                   const SizedBox(height: 48),
-                  PlanetWidget(),
+                  SessionWidget<CelestialBody>(
+                    height: 190,
+                    title: 'Planetas',
+                    list: celestialBodies
+                        .where((element) => element.category == Category.PLANET)
+                        .toList(),
+                    builder: (BuildContext context, CelestialBody body) {
+                      return CelestialCard(celestial: body);
+                    },
+                  ),
                 ],
               ),
             ),
@@ -96,6 +119,41 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _fetchCelestialBodies();
+  }
+
+  Future<void> _fetchCelestialBodies() async {
+    const String jsonPath = 'assets/json/data.json';
+    final Map<String, dynamic> data = await parseJsonFromAssets(jsonPath);
+    final List<CelestialBody> _bodies = _listToCelestialBody(data['bodies']);
+    setState(() {
+      celestialBodies = _bodies;
+    });
+  }
+
+  List<CelestialBody> _listToCelestialBody(List<dynamic> dataBodies) {
+    final List<CelestialBody> _bodies = <CelestialBody>[];
+    for (dynamic body in dataBodies) {
+      _bodies.add(CelestialBody(
+        id: body['id'],
+        name: body['name'],
+        category: body['category'],
+        imagePath: body['image'],
+        shortDescription: body['shortDescription'],
+        description: body['description'],
+      ));
+      List<dynamic> bodies = body['bodies'];
+      if (bodies != null) {
+        _bodies.addAll(_listToCelestialBody(bodies));
+      }
+    }
+    return _bodies;
+  }
 }
 
 class BarItem {
@@ -108,237 +166,4 @@ class BarItem {
   final Widget activeIcon;
   final Widget inactiveIcon;
   final String label;
-}
-
-class SearchTextField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      style: StyleSheet.typography.placeholder,
-      cursorColor: StyleSheet.colors.brandWhite,
-      maxLines: 1,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: StyleSheet.colors.brandBackground,
-        hintText: 'Procure planetas, asteroides e estrelas...',
-        hintMaxLines: 1,
-        hintStyle: StyleSheet.typography.placeholder,
-        prefixIcon: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: AppIcons.search(color: StyleSheet.colors.brandWhite),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-      ),
-    );
-  }
-}
-
-class CategoryWidget extends StatelessWidget {
-  final List<CategoryItem> categories = <CategoryItem>[
-    CategoryItem(
-      title: 'Planetas',
-      icon: AppIcons.planets(color: StyleSheet.colors.brandWhite),
-      gradient: StyleSheet.gradients.blue,
-    ),
-    CategoryItem(
-      title: 'Asteróides',
-      icon: AppIcons.asteroids(color: StyleSheet.colors.brandWhite),
-      gradient: StyleSheet.gradients.pink,
-    ),
-    CategoryItem(
-      title: 'Estrelas',
-      icon: AppIcons.stars(color: StyleSheet.colors.brandWhite),
-      gradient: StyleSheet.gradients.cyan,
-    ),
-    CategoryItem(
-      title: 'Galáxias',
-      icon: AppIcons.galaxies(color: StyleSheet.colors.brandWhite),
-      gradient: StyleSheet.gradients.yellow,
-    ),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Categorias',
-          style: StyleSheet.typography.paragraph.copyWith(
-            color: StyleSheet.colors.brandWhite,
-          ),
-        ),
-        const SizedBox(height: 24),
-        Container(
-          height: 80,
-          child: ListView.separated(
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            itemCount: categories.length,
-            scrollDirection: Axis.horizontal,
-            separatorBuilder: (_, __) => const SizedBox(width: 18),
-            itemBuilder: (BuildContext context, int index) {
-              final CategoryItem category = categories[index];
-              return category.tile;
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class CategoryItem {
-  CategoryItem({
-    @required this.title,
-    @required this.icon,
-    @required this.gradient,
-  });
-
-  final String title;
-  final Widget icon;
-  final Gradient gradient;
-
-  Widget get tile => CategoryCard(
-        image: icon,
-        name: title,
-        gradient: gradient,
-      );
-}
-
-class PlanetWidget extends StatelessWidget {
-  final List<PlanetItem> planets = <PlanetItem>[
-    PlanetItem(
-      title: 'Mercúrio',
-      icon: AppImages.mercury(),
-      onPressed: () {},
-    ),
-    PlanetItem(
-      title: 'Vênus',
-      icon: AppImages.venus(),
-      onPressed: () {},
-    ),
-    PlanetItem(
-      title: 'Terra',
-      icon: AppImages.earth(),
-      onPressed: () {},
-    ),
-    PlanetItem(
-      title: 'Marte',
-      icon: AppImages.mars(),
-      onPressed: () {},
-    ),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Text(
-            'Planetas',
-            style: StyleSheet.typography.paragraph.copyWith(
-              color: StyleSheet.colors.brandWhite,
-            ),
-          ),
-        ),
-        const SizedBox(height: 24),
-        Container(
-//          width: 140,
-          height: 190,
-          child: ListView.separated(
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            itemCount: planets.length,
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
-            separatorBuilder: (_, __) => const SizedBox(width: 18),
-            itemBuilder: (BuildContext context, int index) {
-              final PlanetItem planet = planets[index];
-              return planet.tile;
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class PlanetItem {
-  PlanetItem({
-    @required this.title,
-    @required this.icon,
-    this.onPressed,
-  });
-
-  final String title;
-  final Widget icon;
-  final Function onPressed;
-
-  Widget get tile => PlanetCard(
-        image: icon,
-        name: title,
-        onPressed: onPressed,
-      );
-}
-
-class Header extends StatelessWidget {
-  const Header({this.userName = ''});
-
-  final String userName;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            RichText(
-              text: TextSpan(
-                text: 'Olá',
-                style: StyleSheet.typography.homeTitle,
-                children: <InlineSpan>[
-                  if (userName.isNotEmpty)
-                    TextSpan(
-                      text: ', ',
-                    ),
-                  if (userName.isNotEmpty)
-                    TextSpan(
-                      text: userName,
-                      style: StyleSheet.typography.homeTitle.copyWith(
-                        foreground: Paint()
-                          ..shader = StyleSheet.gradients.pink.createShader(
-                            Rect.fromLTWH(0.0, 0.0, userName.length.toDouble(),
-                                StyleSheet.typography.homeTitle.fontSize),
-                          ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-            Text(
-              'O que voceê vai aprender hoje?',
-              style: StyleSheet.typography.paragraph.copyWith(
-                color: StyleSheet.colors.brandWhiteOpacity,
-              ),
-            ),
-          ],
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: AppIcons.settings(color: StyleSheet.colors.brandWhite),
-        ),
-      ],
-    );
-  }
 }

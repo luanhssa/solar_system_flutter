@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:solar_system/src/app/pages/celestial/celestial_page.dart';
 
 import 'pages/home/home_page.dart';
 import 'pages/welcome/welcome_page.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/welcome': (BuildContext context) => WelcomePage(),
         '/home': (BuildContext context) => HomePage(),
+        '/celestial': (BuildContext context) => CelestialPage(),
       },
     );
   }

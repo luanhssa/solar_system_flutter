@@ -1,0 +1,311 @@
+{
+  "bodies": [
+    {
+      "id": "milky-way",
+      "name": "Via Láctea",
+      "category": "galaxy",
+      "image": "",
+      "shortDescription": "A Via Láctea é uma galáxia espiral, da qual o Sistema Solar faz parte. Vista da Terra, aparece como uma faixa brilhante e difusa que circunda toda a esfera celeste, recortada por nuvens moleculares que lhe conferem um intrincado aspecto irregular e recortado. Sua visibilidade é severamente comprometida pela poluição luminosa. Com poucas exceções, todos os objetos visíveis a olho nu pertencem a essa galáxia.",
+      "description": "",
+      "type": "espiral",
+      "bodies": [
+        {
+          "id": "sun",
+          "name": "sun",
+          "category": "star",
+          "image": "assets/images/Sun.png",
+          "shortDescription": "O Sol é a estrela central do Sistema Solar. Todos os outros corpos do Sistema Solar, como planetas, planetas anões, asteroides, cometas e poeira, bem como todos os satélites associados a estes corpos, giram ao seu redor.",
+          "description": ""
+        },
+        {
+          "id": "mercury",
+          "name": "Mercúrio",
+          "category": "planet",
+          "shortDescription": "",
+          "description": "",
+          "image": "assets/images/Mercury.png",
+          "orbitalCharacteristics": {
+            "rotationDuration": {
+              "value": 58.646,
+              "unit": "day"
+            },
+            "orbitalPeriod": {
+              "value": 87.9691,
+              "unit": "day"
+            },
+            "orbitalSpeed": {
+              "value": 47.362,
+              "unit": "km/s"
+            }
+          },
+          "physicalCharacteristics": {
+            "radius": {
+              "value": "2.439",
+              "unit": "km"
+            },
+            "diameter": {
+              "value": 4.879,
+              "unit": "km"
+            },
+            "temperature": {
+              "value": 167,
+              "unit": "celsius"
+            }
+          }
+        },
+        {
+          "id": "venus",
+          "name": "Vênus",
+          "category": "planet",
+          "shortDescription": "",
+          "description": "",
+          "image": "assets/images/Venus.png",
+          "orbitalCharacteristics": {
+            "rotationDuration": {
+              "value": 58.646,
+              "unit": "day"
+            },
+            "orbitalPeriod": {
+              "value": 87.9691,
+              "unit": "day"
+            },
+            "orbitalSpeed": {
+              "value": 47.362,
+              "unit": "km/s"
+            }
+          },
+          "physicalCharacteristics": {
+            "radius": {
+              "value": "2.439",
+              "unit": "km"
+            },
+            "diameter": {
+              "value": 4.879,
+              "unit": "km"
+            },
+            "temperature": {
+              "value": 167,
+              "unit": "celsius"
+            }
+          }
+        },
+        {
+          "id": "earth",
+          "name": "Terra",
+          "category": "planet",
+          "shortDescription": "",
+          "description": "",
+          "image": "assets/images/Earth.png",
+          "orbitalCharacteristics": {
+            "rotationDuration": {
+              "value": 58.646,
+              "unit": "day"
+            },
+            "orbitalPeriod": {
+              "value": 87.9691,
+              "unit": "day"
+            },
+            "orbitalSpeed": {
+              "value": 47.362,
+              "unit": "km/s"
+            }
+          },
+          "physicalCharacteristics": {
+            "radius": {
+              "value": "2.439",
+              "unit": "km"
+            },
+            "diameter": {
+              "value": 4.879,
+              "unit": "km"
+            },
+            "temperature": {
+              "value": 167,
+              "unit": "celsius"
+            }
+          }
+        },
+        {
+          "id": "mars",
+          "name": "Marte",
+          "category": "planet",
+          "shortDescription": "",
+          "description": "",
+          "image": "assets/images/Mars.png",
+          "orbitalCharacteristics": {
+            "rotationDuration": {
+              "value": 58.646,
+              "unit": "day"
+            },
+            "orbitalPeriod": {
+              "value": 87.9691,
+              "unit": "day"
+            },
+            "orbitalSpeed": {
+              "value": 47.362,
+              "unit": "km/s"
+            }
+          },
+          "physicalCharacteristics": {
+            "radius": {
+              "value": "2.439",
+              "unit": "km"
+            },
+            "diameter": {
+              "value": 4.879,
+              "unit": "km"
+            },
+            "temperature": {
+              "value": 167,
+              "unit": "celsius"
+            }
+          }
+        },
+        {
+          "id": "jupiter",
+          "name": "Júpiter",
+          "category": "planet",
+          "shortDescription": "",
+          "description": "",
+          "image": "assets/images/Jupiter.png",
+          "orbitalCharacteristics": {
+            "rotationDuration": {
+              "value": 58.646,
+              "unit": "day"
+            },
+            "orbitalPeriod": {
+              "value": 87.9691,
+              "unit": "day"
+            },
+            "orbitalSpeed": {
+              "value": 47.362,
+              "unit": "km/s"
+            }
+          },
+          "physicalCharacteristics": {
+            "radius": {
+              "value": "2.439",
+              "unit": "km"
+            },
+            "diameter": {
+              "value": 4.879,
+              "unit": "km"
+            },
+            "temperature": {
+              "value": 167,
+              "unit": "celsius"
+            }
+          }
+        },
+        {
+          "id": "saturn",
+          "name": "Saturno",
+          "category": "planet",
+          "shortDescription": "",
+          "description": "",
+          "image": "assets/images/Saturn.png",
+          "orbitalCharacteristics": {
+            "rotationDuration": {
+              "value": 58.646,
+              "unit": "day"
+            },
+            "orbitalPeriod": {
+              "value": 87.9691,
+              "unit": "day"
+            },
+            "orbitalSpeed": {
+              "value": 47.362,
+              "unit": "km/s"
+            }
+          },
+          "physicalCharacteristics": {
+            "radius": {
+              "value": "2.439",
+              "unit": "km"
+            },
+            "diameter": {
+              "value": 4.879,
+              "unit": "km"
+            },
+            "temperature": {
+              "value": 167,
+              "unit": "celsius"
+            }
+          }
+        },
+        {
+          "id": "uranus",
+          "name": "Uranos",
+          "category": "planet",
+          "shortDescription": "",
+          "description": "",
+          "image": "assets/images/Uranus.png",
+          "orbitalCharacteristics": {
+            "rotationDuration": {
+              "value": 58.646,
+              "unit": "day"
+            },
+            "orbitalPeriod": {
+              "value": 87.9691,
+              "unit": "day"
+            },
+            "orbitalSpeed": {
+              "value": 47.362,
+              "unit": "km/s"
+            }
+          },
+          "physicalCharacteristics": {
+            "radius": {
+              "value": "2.439",
+              "unit": "km"
+            },
+            "diameter": {
+              "value": 4.879,
+              "unit": "km"
+            },
+            "temperature": {
+              "value": 167,
+              "unit": "celsius"
+            }
+          }
+        },
+        {
+          "id": "neptune",
+          "name": "Netuno",
+          "category": "planet",
+          "shortDescription": "",
+          "description": "",
+          "image": "assets/images/Neptune.png",
+          "orbitalCharacteristics": {
+            "rotationDuration": {
+              "value": 58.646,
+              "unit": "day"
+            },
+            "orbitalPeriod": {
+              "value": 87.9691,
+              "unit": "day"
+            },
+            "orbitalSpeed": {
+              "value": 47.362,
+              "unit": "km/s"
+            }
+          },
+          "physicalCharacteristics": {
+            "radius": {
+              "value": "2.439",
+              "unit": "km"
+            },
+            "diameter": {
+              "value": 4.879,
+              "unit": "km"
+            },
+            "temperature": {
+              "value": 167,
+              "unit": "celsius"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

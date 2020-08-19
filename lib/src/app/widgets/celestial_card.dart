@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:solar_system/src/core/stylesheet.dart';
+import 'package:solar_system/src/domain/entities/celestial_body.dart';
 
 import 'icons/app_icons.dart';
 
-class PlanetCard extends StatelessWidget {
-  const PlanetCard({
-    @required this.name,
-    @required this.image,
-    this.onPressed,
+class CelestialCard extends StatelessWidget {
+  const CelestialCard({
+    @required this.celestial,
   });
 
-  final String name;
-  final Function onPressed;
-  final Widget image;
+  final CelestialBody celestial;
 
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      onPressed: onPressed,
+      onPressed: () => Navigator.of(context).pushNamed('/celestial', arguments: celestial),
       padding: EdgeInsets.zero,
       child: Container(
         width: 140,
@@ -42,7 +39,11 @@ class PlanetCard extends StatelessWidget {
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       alignment: Alignment.bottomRight,
                       fit: BoxFit.cover,
-                      child: image,
+                      child: Hero(
+                        transitionOnUserGestures: true,
+                        tag: celestial.id,
+                        child: celestial.image,
+                      ),
                     ),
                   ),
                 ),
@@ -60,7 +61,7 @@ class PlanetCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      name,
+                      celestial.name,
                       style: StyleSheet.typography.paragraph.copyWith(
                         color: StyleSheet.colors.brandWhite,
                       ),
